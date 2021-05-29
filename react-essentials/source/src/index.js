@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 //import App from './App'
 
+/*
 function AppWithStateExample() {
   const [emotion, setEmotion] = useState("happy");
   const [secondary, setSecondary] = useState("tired");
@@ -33,14 +34,31 @@ function AppWithStateExample() {
     <button onClick={() => setEmotion("enthusiastic")}>enthuse</button>
     <button onClick={() => setSecondary("dizzy")}>Make Sleepy</button>
 
-    {/* <input type="checkbox" onChange={() => setChecked((checked) => !checked)} value={checked} /> */}
+    //{ <input type="checkbox" onChange={() => setChecked((checked) => !checked)} value={checked} /> }
     <input type="checkbox" onChange={toggle} value={checked} />
     <p>{checked ? "Checked" : "Not Checked"}</p>
   </>
 }
 
+*/
+
+function AppWithUseEffectForDataHook({login}) {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    fetch(`https://api.github.com/users/${login}`)
+    .then((response) => response.json())
+    .then(setData);
+  }, []);
+
+  if (login) {
+    return <div>{JSON.stringify(data)}</div>
+  }
+
+  return <div>No Data available</div>
+}
 ReactDOM.render(
   // <App authorized={true}/>,
-  <AppWithStateExample />,
+  <AppWithUseEffectForDataHook login="jawwadalam"/>,
   document.getElementById('root')
 );
