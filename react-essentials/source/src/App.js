@@ -16,6 +16,10 @@ function Header(props){
   );
 }
 
+function SecretHeader(props){
+  return <Header name={props.name + '-Secret'}/>
+}
+
 function Main(props){
   return (
     <section>
@@ -36,10 +40,13 @@ function Footer(props){
   );
 }
 
-function App() {
+function App(props) {
   return (
     <div className="App">
-      <Header name="Hell"/>
+      <> {
+          props.authorized ? <SecretHeader name="Hell"/> : <Header name="Hell"/> 
+          }
+        </>
       <Main adjective="yummy" dishes={dishesObj}/>
       <Footer year={new Date().getFullYear()}/>
     </div>
