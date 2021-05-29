@@ -10,6 +10,28 @@ const dishes = [
 
 const dishesObj = dishes.map((dish, i) => ({id: i, title: dish}))
 
+const checklist = ["boots", "tent", "torch"];
+const [firstArrayItem, , thirdItem] = checklist;
+console.log(checklist)
+
+console.log(firstArrayItem);
+console.log(thirdItem);
+
+
+class Person {
+  constructor(){
+    this.firstName = "";
+    this.lastName = "";
+  }
+}
+
+let objPerson = new Person();
+objPerson.firstName = "Mike";
+objPerson.lastName = "Bloom";
+
+const {lastName} = objPerson;
+console.log(lastName);
+
 function Header(props){
   return (
     <h1>{props.name}'s Kitchen</h1>

@@ -24,3 +24,4 @@ yarn-error.log*
 *.suo
 /.vs
 ~$*.docx
+*.tmp
