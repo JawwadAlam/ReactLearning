@@ -26,11 +26,13 @@ class Person {
 }
 
 let objPerson = new Person();
+
 objPerson.firstName = "Mike";
 objPerson.lastName = "Bloom";
 
 const {lastName} = objPerson;
 console.log(lastName);
+
 
 function Header(props){
   return (

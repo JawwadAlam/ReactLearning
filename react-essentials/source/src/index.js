@@ -42,31 +42,41 @@ function AppWithStateExample() {
 
 */
 
-function AppWithUseEffectForDataHook({login}) {
+function AppWithUseEffectForDataHook({ login }) {
   const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-console.log("I am being called")
+    if (!login) return;
+
+    setLoading(true);
 
     fetch(`https://api.github.com/users/${login}`)
-    .then((response) => response.json())
-    .then(setData);
-  }, []);
+      .then((response) => response.json())
+      .then(setData)
+      .then(() => setLoading(false))
+      .catch((error) => setError(error));
+  }, [login]);
 
-  if (data) {
-    return (
+  if (loading) return <h1>Loading...</h1>
+
+  if (error) return <pre>{JSON.stringify(data, null, 2)}</pre>
+
+  if (!data) return <h1>No Data available</h1>
+
+  if(data && data.message) return <pre>{data.message}</pre>
+  return (
     <div>
       <h1>{data.name}</h1>
-      <p>Total Repos: {data.public_repos}</p>
+      <p>{data.public_repos}</p>
       <img alt={data.login} src={data.avatar_url} />
     </div>
-    );
-  }
+  );
 
-  return <div>No Data available</div>
 }
 ReactDOM.render(
   // <App authorized={true}/>,
-  <AppWithUseEffectForDataHook login="jawwadalam"/>,
+  <AppWithUseEffectForDataHook login="jawwadalam" />,
   document.getElementById('root')
 );
